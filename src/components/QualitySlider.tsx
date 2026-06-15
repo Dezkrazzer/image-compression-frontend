@@ -1,4 +1,5 @@
 import { SlidersHorizontal } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface QualitySliderProps {
   quality: number;
@@ -10,7 +11,7 @@ export default function QualitySlider({ quality, setQuality, disabled }: Quality
   const progress = ((100 - quality) / 80) * 100;
 
   return (
-    <div className={`glass-card rounded-2xl p-6 ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
+    <motion.div whileHover={{ y: -2 }} transition={{ type: 'spring', stiffness: 300, damping: 26 }} className={`glass-card rounded-2xl p-6 ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-dark-700 flex items-center justify-center">
@@ -18,9 +19,9 @@ export default function QualitySlider({ quality, setQuality, disabled }: Quality
           </div>
           <span className="font-semibold text-dark-100">Compression Level</span>
         </div>
-        <div className="px-4 py-1.5 rounded-xl bg-accent/20 text-accent-light font-bold text-lg tabular-nums">
+        <motion.div key={quality} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.18 }} className="px-4 py-1.5 rounded-xl bg-accent/20 text-accent-light font-bold text-lg tabular-nums">
           {100 - quality}%
-        </div>
+        </motion.div>
       </div>
       <div className="space-y-3">
         <input
@@ -36,6 +37,6 @@ export default function QualitySlider({ quality, setQuality, disabled }: Quality
           <span>Min Compression (0%)</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

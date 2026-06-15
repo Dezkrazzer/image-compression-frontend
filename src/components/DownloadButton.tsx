@@ -1,4 +1,5 @@
 import { Download } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface DownloadButtonProps {
   compressedUrl: string | null;
@@ -16,9 +17,11 @@ export default function DownloadButton({ compressedUrl, fileName, disabled }: Do
   };
 
   return (
-    <button
+    <motion.button
       onClick={handleDownload}
       disabled={disabled}
+      whileHover={disabled ? undefined : { y: -2, scale: 1.01 }}
+      whileTap={disabled ? undefined : { scale: 0.98, y: 1 }}
       className={`btn-glow w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-lg tracking-wide flex items-center justify-center gap-3 transition-all ${
         disabled
           ? 'bg-dark-600 text-dark-400 cursor-not-allowed'
@@ -27,6 +30,6 @@ export default function DownloadButton({ compressedUrl, fileName, disabled }: Do
     >
       <Download size={22} />
       <span>Download Compressed</span>
-    </button>
+    </motion.button>
   );
 }

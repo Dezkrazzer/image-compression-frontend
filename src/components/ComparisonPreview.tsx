@@ -1,4 +1,5 @@
 import { Split } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface ComparisonPreviewProps {
   originalUrl: string;
@@ -9,7 +10,7 @@ interface ComparisonPreviewProps {
 
 export default function ComparisonPreview({ originalUrl, compressedUrl, originalSize, compressedSize }: ComparisonPreviewProps) {
   return (
-    <div className="fade-in">
+    <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
       <div className="flex items-center gap-3 mb-6">
         <div className="w-8 h-8 rounded-lg bg-dark-700 flex items-center justify-center">
           <Split size={16} className="text-accent-light" />
@@ -44,6 +45,6 @@ export default function ComparisonPreview({ originalUrl, compressedUrl, original
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

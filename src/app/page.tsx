@@ -2,12 +2,19 @@
 
 import { useState } from 'react';
 import { Zap, Loader2, ImagePlus, RotateCcw, Image as ImageIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 import Header from '@/components/Header';
 import UploadZone from '@/components/UploadZone';
 import QualitySlider from '@/components/QualitySlider';
 import ComparisonPreview from '@/components/ComparisonPreview';
 import Stats from '@/components/Stats';
 import DownloadButton from '@/components/DownloadButton';
+
+const fadeUp = {
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+};
 
 export default function Home() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -129,27 +136,39 @@ export default function Home() {
       <Header />
       
       <main id="home" className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3">
+        <motion.div {...fadeUp} className="text-center mb-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3"
+          >
             Compress Your <span className="bg-linear-to-r from-accent-light to-purple-400 bg-clip-text text-transparent">Images</span>
-          </h1>
-          <p className="text-dark-400 text-base sm:text-lg max-w-xl mx-auto">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.18, duration: 0.45 }}
+            className="text-dark-400 text-base sm:text-lg max-w-xl mx-auto"
+          >
             Fast, client-side image compression with real-time preview. No uploads to servers — your images stay private.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
         
-        <div className="mb-6">
+        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="mb-6">
           <UploadZone onFileSelect={handleFileSelect} currentFile={originalFile} />
-        </div>
+        </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
-          <div className="lg:col-span-2">
+        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.14 }} className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+          <motion.div className="lg:col-span-2" whileHover={{ y: -2 }} transition={{ type: 'spring', stiffness: 280, damping: 24 }}>
             <QualitySlider quality={quality} setQuality={setQuality} disabled={!originalFile} />
-          </div>
+          </motion.div>
           <div className="flex flex-col gap-3">
-            <button
+            <motion.button
               onClick={handleCompress}
               disabled={!originalFile || isCompressing}
+              whileHover={originalFile && !isCompressing ? { y: -2, scale: 1.01 } : undefined}
+              whileTap={originalFile && !isCompressing ? { scale: 0.98, y: 1 } : undefined}
               className={`btn-glow w-full py-4 rounded-2xl font-bold text-lg tracking-wide flex items-center justify-center gap-3 ${
                 !originalFile || isCompressing
                   ? 'bg-dark-600 text-dark-400 cursor-not-allowed'
@@ -161,21 +180,23 @@ export default function Home() {
               ) : (
                 <><Zap size={22} /> <span>Compress Image</span></>
               )}
-            </button>
+            </motion.button>
             {originalFile && (
-              <button
+              <motion.button
                 onClick={handleReset}
+                whileHover={{ y: -1, scale: 1.01 }}
+                whileTap={{ scale: 0.98, y: 1 }}
                 className="py-3 rounded-2xl font-semibold text-dark-300 border border-dark-600 hover:border-dark-400 hover:text-dark-100 transition-all flex items-center justify-center gap-2"
               >
                 <RotateCcw size={18} />
                 <span>Reset</span>
-              </button>
+              </motion.button>
             )}
           </div>
-        </div>
+        </motion.div>
         
         {hasResult && compressedUrl && originalFile && (
-          <div className="space-y-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }} className="space-y-6">
             <ComparisonPreview
               originalUrl={originalUrl!}
               compressedUrl={compressedUrl}
@@ -195,36 +216,36 @@ export default function Home() {
                 disabled={!compressedUrl}
               />
             </div>
-          </div>
+          </motion.div>
         )}
         
         {!hasResult && originalFile && !isCompressing && (
-          <div className="glass-card rounded-2xl p-10 text-center fade-in">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="glass-card rounded-2xl p-10 text-center fade-in">
             <div className="w-14 h-14 rounded-2xl bg-dark-700 flex items-center justify-center mx-auto mb-4">
               <ImageIcon size={28} className="text-dark-400" />
             </div>
             <p className="text-dark-300 text-lg font-medium">Image loaded and ready!</p>
-            <p className="text-dark-500 text-sm mt-1">Adjust compression level and click "Compress Image" to start.</p>
-          </div>
+            <p className="text-dark-500 text-sm mt-1">Adjust compression level and click &quot;Compress Image&quot; to start.</p>
+          </motion.div>
         )}
         
         {!originalFile && !isCompressing && (
-          <div className="glass-card rounded-2xl p-10 text-center">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="glass-card rounded-2xl p-10 text-center">
             <div className="w-14 h-14 rounded-2xl bg-dark-700 flex items-center justify-center mx-auto mb-4">
               <ImagePlus size={28} className="text-dark-400" />
             </div>
             <p className="text-dark-300 text-lg font-medium">No image selected</p>
             <p className="text-dark-500 text-sm mt-1">Upload an image above to get started with compression.</p>
-          </div>
+          </motion.div>
         )}
 
       </main>
       
-      <footer className="border-t border-dark-800 py-6 text-center text-dark-500 text-sm mt-8">
+      <motion.footer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.45 }} className="border-t border-dark-800 py-6 text-center text-dark-500 text-sm mt-8">
         <div className="max-w-6xl mx-auto px-4">
           <p>CompressX — All processing happens locally in your browser. Your images never leave your device.</p>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 }

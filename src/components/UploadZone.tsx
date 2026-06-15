@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { UploadCloud, CheckCircle } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface UploadZoneProps {
   onFileSelect: (file: File) => void;
@@ -30,7 +31,9 @@ export default function UploadZone({ onFileSelect, currentFile }: UploadZoneProp
   };
 
   return (
-    <div
+    <motion.div
+      whileHover={{ y: -2, scale: 1.005 }}
+      whileTap={{ scale: 0.995 }}
       className={`upload-zone rounded-2xl p-8 sm:p-12 text-center cursor-pointer ${isDragOver ? 'drag-over' : ''}`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
@@ -49,12 +52,12 @@ export default function UploadZone({ onFileSelect, currentFile }: UploadZoneProp
           <p className="text-sm text-dark-400 mt-1">Supports PNG, JPG, JPEG, WEBP</p>
         </div>
         {currentFile && (
-          <div className="flex items-center gap-2 text-green-400 text-sm mt-1 fade-in">
+          <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2 text-green-400 text-sm mt-1">
             <CheckCircle size={16} />
             <span>File loaded • {(currentFile.size / 1024).toFixed(1)} KB</span>
-          </div>
+          </motion.div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
