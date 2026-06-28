@@ -8,8 +8,8 @@ interface QualitySliderProps {
 }
 
 export default function QualitySlider({ quality, setQuality, disabled }: QualitySliderProps) {
-  // persentase untuk progress bar (range 1 - 250)
-  const progress = ((quality - 1) / 249) * 100;
+  // persentase untuk progress bar (range 1 - 1000)
+  const progress = ((quality - 1) / 999) * 100;
 
   return (
     <motion.div whileHover={{ y: -2 }} transition={{ type: 'spring', stiffness: 300, damping: 26 }} className={`glass-card rounded-2xl p-6 ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
@@ -26,7 +26,7 @@ export default function QualitySlider({ quality, setQuality, disabled }: Quality
       </div>
       <div className="space-y-3">
         <input
-          type="range" min="1" max="250" step="1"
+          type="range" min="1" max="1000" step="1"
           value={quality}
           onChange={(e) => setQuality(Number(e.target.value))}
           className="slider-track w-full"
@@ -34,8 +34,8 @@ export default function QualitySlider({ quality, setQuality, disabled }: Quality
           disabled={disabled}
         />
         <div className="flex justify-between text-xs text-dark-400">
-          <span>Lebih Buram (1)</span>
-          <span>Lebih Jelas (250)</span>
+          <span>Blurry (1)</span>
+          <span>Sharper (1000)</span>
         </div>
       </div>
     </motion.div>
