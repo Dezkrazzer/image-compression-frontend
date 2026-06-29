@@ -131,6 +131,18 @@ Pastikan Anda sudah menginstal [Node.js](https://nodejs.org/) di perangkat Anda.
 4. Akses aplikasi frontend di peramban (browser) melalui:
    [http://localhost:3000](http://localhost:3000)
 
+### Konfigurasi Environment
+File `.env.local` wajib ada. Salin `.env.example` menjadi `.env.local` lalu isi nilainya:
+
+```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+PORT=3000
+```
+
+- `NEXT_PUBLIC_SITE_URL` dipakai untuk metadata seperti `metadataBase`, `og:url`, dan tag sosial lain.
+- `PORT` dipakai Next.js saat menjalankan `npm run dev` dan `npm run start`.
+- Jika salah satu belum diisi, aplikasi akan menampilkan error saat start.
+
 ### 2. Setup Backend
 Kode sumber, dokumentasi, dan panduan untuk memasang serta menjalankan server backend Python (FastAPI) tersedia secara terpisah pada repositori berikut:
 👉 **[Dezkrazzer/image-compression-backend](https://github.com/Dezkrazzer/image-compression-backend)**
