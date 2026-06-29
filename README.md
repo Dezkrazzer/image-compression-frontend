@@ -1,11 +1,14 @@
-# 🌟 Image Compressor with PCA (Principal Component Analysis)
-
 <p align="center">
   <img src="public/logo-uns-biru.png" alt="UNS Logo" width="120" />
 </p>
 
+<h1 align="center">Face Recognition — Eigenface Method</h1>
+
 <p align="center">
-  <strong>Tugas Besar Praktikum Pengolahan Citra Digital</strong><br />
+  <strong>Kelompok 7 · Informatika 2025D · Universitas Sebelas Maret</strong>
+</p>
+
+<p align="center">
   Aplikasi Web Interaktif untuk Reduksi Dimensi & Kompresi Citra berbasis Principal Component Analysis (PCA) / Singular Value Decomposition (SVD).
 </p>
 
@@ -156,7 +159,6 @@ Kode sumber, dokumentasi, dan panduan untuk memasang serta menjalankan server ba
 * **Tampilan & Gaya (CSS)**: Tailwind CSS v4 untuk penataan komponen adaptif modern serta kustomisasi tema gelap (*dark theme*).
 * **Animasi**: `motion/react` (Motion v12) untuk transisi halus pada *card*, *slider*, *button*, dan efek *micro-interaction*.
 * **Ikon**: `lucide-react` untuk visualisasi ikon antarmuka yang minimalis dan tajam.
-* **Indikator Konektivitas (Ping)**: Fitur pengecekan ping *real-time* di pojok kanan atas layar untuk mengukur waktu respons server lokal.
 
 ---
 
