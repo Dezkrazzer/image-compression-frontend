@@ -17,16 +17,16 @@ const members = [
     nim: 'L0125109',
     role: 'Backend Developer',
     photo: '/foto_member_2.jpg',
-    github: '#',
-    linkedin: '#',
+    github: 'https://github.com/AiChan277',
+    linkedin: 'https://www.linkedin.com/in/muhammad-haidar-ramzy/',
   },
   {
     name: 'Egifrid Angelo Mwoleka',
     nim: 'L0125096',
     role: 'UI/UX Designer',
     photo: '/foto_member_3.jpg',
-    github: '#',
-    linkedin: '#',
+    github: 'https://github.com/mweyunge',
+    linkedin: 'https://www.linkedin.com/in/egifrid-mwoleka-5b2a581b5/',
   },
 ];
 
