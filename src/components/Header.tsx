@@ -17,22 +17,15 @@ export default function Header() {
   const [isChecking, setIsChecking] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Otomatis menutup dropdown mobile saat pengguna berpindah halaman
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
-
-  // Logika pengecekan Ping
+  // Logika pengecekan Ping (tetap sama)
   useEffect(() => {
     let active = true;
 
     const measurePing = async () => {
       const startTime = performance.now();
-
       try {
         await fetch('/', { method: 'HEAD', cache: 'no-store' });
         const elapsed = Math.round(performance.now() - startTime);
-
         if (active) {
           setPingMs(elapsed);
           setIsChecking(false);
@@ -82,11 +75,10 @@ export default function Header() {
         </span>
       </div>
 
-      {/* Navigasi Desktop (Disembunyikan di Mobile) */}
+      {/* Navigasi Desktop */}
       <nav className="hidden sm:flex relative items-center gap-1 rounded-full border border-white/10 bg-white/5 px-1 py-1 text-sm font-medium text-dark-200">
         {navItems.map((item) => {
           const isActive = pathname === item.path;
-
           return (
             <Link
               key={item.path}
@@ -108,7 +100,7 @@ export default function Header() {
         })}
       </nav>
 
-      {/* Bagian Ping Desktop (Disembunyikan di Mobile) */}
+      {/* Bagian Ping Desktop */}
       <div className="hidden sm:flex items-center gap-1.5 text-dark-300 text-sm tabular-nums justify-end w-18">
         <Wifi size={16} style={{ color: pingColor() }} className="shrink-0" />
         <motion.span
@@ -123,7 +115,7 @@ export default function Header() {
         </motion.span>
       </div>
 
-      {/* Tombol Hamburger Mobile (Hanya muncul di Mobile) */}
+      {/* Tombol Hamburger Mobile */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="flex sm:hidden items-center justify-center w-10 h-10 text-dark-300 hover:text-white transition-colors"
@@ -140,8 +132,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            /* PERUBAHAN: menggunakan left-0 dan w-full agar selebar header */
-            className="absolute top-[calc(100%+0.5rem)] left-0 w-full glass-card rounded-2xl p-2 flex flex-col gap-1 shadow-xl sm:hidden border border-white/10 overflow-hidden"
+            className="absolute top-[calc(100%+0.5rem)] left-0 w-full rounded-2xl p-2 flex flex-col gap-1 shadow-xl sm:hidden border border-white/10 overflow-hidden bg-black/80 backdrop-blur-md"
           >
             {navItems.map((item) => {
               const isActive = pathname === item.path;
@@ -149,6 +140,7 @@ export default function Header() {
                 <Link
                   key={item.path}
                   href={item.path}
+                  onClick={() => setIsMenuOpen(false)}
                   className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors text-center ${
                     isActive
                       ? 'bg-white/10 text-white'
@@ -160,10 +152,9 @@ export default function Header() {
               );
             })}
 
-            {/* Garis Pembatas */}
             <div className="h-px bg-white/10 my-1 mx-2" />
 
-            {/* Bagian Ping di dalam Dropdown Mobile */}
+            {/* Bagian Ping Mobile */}
             <div className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium text-dark-200">
               <div className="flex items-center gap-2">
                 <Wifi size={16} style={{ color: pingColor() }} />

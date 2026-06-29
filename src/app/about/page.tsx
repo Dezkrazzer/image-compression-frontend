@@ -50,7 +50,7 @@ const LinkedinIcon = () => (
 export default function AnggotaKelompokPage() {
   return (
     <div className="h-screen w-full hero-gradient overflow-hidden flex flex-col">
-      <main className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 w-full pt-12">
+      <main className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 w-full pt-28">
 
         {/* Header Title */}
         <motion.div
