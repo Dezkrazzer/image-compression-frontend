@@ -9,6 +9,20 @@ import ComparisonPreview from '@/components/ComparisonPreview';
 import Stats from '@/components/Stats';
 import DownloadButton from '@/components/DownloadButton';
 
+const backendBaseUrl = process.env.NEXT_PUBLIC_BACKEND_URL?.trim();
+
+const getBackendUrl = (path: string) => {
+  if (!backendBaseUrl) {
+    throw new Error('NEXT_PUBLIC_BACKEND_URL belum diset.');
+  }
+
+  const normalizedBaseUrl = /^https?:\/\//i.test(backendBaseUrl)
+    ? backendBaseUrl
+    : `http://${backendBaseUrl}`;
+
+  return new URL(path, normalizedBaseUrl).toString();
+};
+
 export default function Home() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string | null>(null);
@@ -46,8 +60,8 @@ export default function Home() {
     formData.append('components', pcaComponents.toString());
 
     try {
-      // Tembak API Backend lokal di port 8000
-      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/compress', {
+      // Tembak API backend dengan URL yang sudah dinormalisasi
+      const response = await fetch(getBackendUrl('/compress'), {
         method: 'POST',
         body: formData,
       });
@@ -65,7 +79,7 @@ export default function Home() {
       setHasResult(true);
     } catch (error) {
       console.error("Error compressing image:", error);
-      alert("Gagal menghubungi server Python. Pastikan backend sudah berjalan di port 8000.");
+      alert("Gagal menghubungi server backend. Pastikan NEXT_PUBLIC_BACKEND_URL sudah benar dan backend sedang berjalan.");
     } finally {
       setIsCompressing(false);
     }
@@ -171,7 +185,7 @@ export default function Home() {
               <ImageIcon size={28} className="text-dark-400" />
             </div>
             <p className="text-dark-300 text-lg font-medium">Image Ready for PCA Calculation</p>
-            <p className="text-dark-500 text-sm mt-1">Adjust the number of PCA components and click "Start Compression" to send to the server.</p>
+            <p className="text-dark-500 text-sm mt-1">Adjust the number of PCA components and click &quot;Start Compression&quot; to send to the server.</p>
           </div>
         )}
 
