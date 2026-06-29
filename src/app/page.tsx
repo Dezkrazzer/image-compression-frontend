@@ -47,7 +47,7 @@ export default function Home() {
 
     try {
       // Tembak API Backend lokal di port 8000
-      const response = await fetch('http://localhost:8000/compress', {
+      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/compress', {
         method: 'POST',
         body: formData,
       });
