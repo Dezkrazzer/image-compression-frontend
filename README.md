@@ -2,7 +2,7 @@
   <img src="public/logo-uns-biru.png" alt="UNS Logo" width="120" />
 </p>
 
-<h1 align="center">Face Recognition — Eigenface Method</h1>
+<h1 align="center">Image Compression — PCA & SVD Method</h1>
 
 <p align="center">
   <strong>Kelompok 7 · Informatika 2025D · Universitas Sebelas Maret</strong>
